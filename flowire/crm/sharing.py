@@ -11,8 +11,14 @@ the business-level ``lead_owner`` / ``opportunity_owner`` field. A
 ``has_permission`` hook can only restrict access, never grant it, so per-document
 access is granted by creating DocShare rows.
 
-Do not change the behaviour here without changing it in
-``scripts/setup-erpnext.mjs`` too — the two are meant to be the same logic.
+Registered in ``hooks.py`` as:
+
+    Lead / Opportunity  on_update     -> share_with_owner
+    ToDo                after_insert  -> share_on_assignment
+    ToDo                on_update     -> unshare_on_cancel
+    ToDo                on_trash      -> unshare_on_delete
+
+Every handler is idempotent and never raises for a missing user or document.
 """
 
 import frappe
@@ -79,21 +85,21 @@ def _has_other_live_assignment(doc) -> bool:
 	)
 
 
-def share_with_assignee(doc, method=None):
+def share_on_assignment(doc, method=None):
 	"""ToDo ``after_insert`` — share the assigned Lead/Opportunity with the assignee."""
 	if doc.reference_type not in TRACKED or not doc.allocated_to:
 		return
 	_share(doc.reference_type, doc.reference_name, doc.allocated_to)
 
 
-def revoke_if_cancelled(doc, method=None):
+def unshare_on_cancel(doc, method=None):
 	"""ToDo ``on_update`` — revoke the share when the assignment is cancelled."""
 	if doc.status != "Cancelled":
 		return
 	_revoke_current(doc)
 
 
-def revoke_on_delete(doc, method=None):
+def unshare_on_delete(doc, method=None):
 	"""ToDo ``on_trash`` — revoke the share when the assignment ToDo is deleted."""
 	_revoke_current(doc)
 
@@ -107,7 +113,7 @@ def _revoke_current(doc) -> None:
 	_revoke(doc.reference_type, doc.reference_name, doc.allocated_to)
 
 
-def share_with_owner_field(doc, method=None):
+def share_with_owner(doc, method=None):
 	"""Lead/Opportunity ``on_update`` — share with ``lead_owner`` / ``opportunity_owner``.
 
 	Fires when a manager creates a record "on behalf of" someone else, so the

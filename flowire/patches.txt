@@ -2,6 +2,9 @@
 # Patches in this section run before doctypes are migrated.
 # Docs: https://frappeframework.com/docs/user/en/database-migrations
 
+# Tag our schema customizations with module = "Flowire" so the fixture filters in
+# hooks.py can find them.
+flowire.patches.v1_0.tag_flowire_records
+
 [post_model_sync]
 # Patches in this section run after doctypes are migrated.
-flowire.patches.v1_0.tag_module_flowire

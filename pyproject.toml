@@ -1,11 +1,8 @@
 [project]
 name = "flowire"
-authors = [{ name = "Flowire", email = "dev@flowire.app" }]
-description = "Flowire CRM — the Frappe app installed on every tenant site"
+authors = [{ name = "Netlogg", email = "dev@flowire.app" }]
+description = "Flowire CRM customizations for ERPNext"
 readme = "README.md"
-# Tighten to ">=3.14,<3.15" once Phase 0 (Frappe/ERPNext v16) is complete — v16
-# requires Python 3.14, but v15 still allows >=3.10 and this app must install on
-# both during the transition.
 requires-python = ">=3.10"
 dynamic = ["version"]
 dependencies = []
@@ -13,5 +10,10 @@ dependencies = []
 [build-system]
 requires = ["flit_core >=3.4,<4"]
 build-backend = "flit_core.buildapi"
+
+# Compatible with both Frappe majors: production runs v15 today, v16 is the
+# eventual target. Testing happens on v15 — see the plan, ground rule 3.
+[tool.bench.frappe-dependencies]
+frappe = ">=15.0.0,<17.0.0"
 
 [tool.bench.dev-dependencies]
