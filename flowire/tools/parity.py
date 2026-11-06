@@ -17,6 +17,7 @@ everything else must be identical.
 """
 
 import json
+import os
 
 import frappe
 
@@ -96,17 +97,24 @@ def _plain(value):
 
 
 def _rows(doctype, keys, filters=None, order_by="name asc"):
-	"""Read rows as plain dicts, tolerating doctypes that do not exist on a site."""
+	"""Read rows as plain dicts, tolerating doctypes that do not exist on a site.
+
+	Requested keys are intersected with the columns the doctype actually has:
+	these tables change shape between Frappe majors, and one absent column would
+	otherwise abort the whole SELECT and silently empty the snapshot.
+	"""
 	if not frappe.db.exists("DocType", doctype):
 		return []
+	valid = set(frappe.get_meta(doctype).get_valid_columns())
+	usable = [key for key in keys if key in valid]
 	rows = frappe.get_all(
 		doctype,
 		filters=filters or {},
-		fields=list(keys),
+		fields=usable,
 		order_by=order_by,
 		limit_page_length=0,
 	)
-	return [{key: _plain(row.get(key)) for key in keys} for row in rows]
+	return [{key: _plain(row.get(key)) for key in usable} for row in rows]
 
 
 def _fields(doctype):
@@ -177,3 +185,22 @@ def snapshot(doctypes=None) -> dict:
 def snapshot_json(doctypes=None) -> str:
 	"""Same snapshot as ``snapshot()``, serialised with sorted keys for diffing."""
 	return json.dumps(snapshot(doctypes), indent=2, sort_keys=True, default=str)
+
+
+def dump(out=None, doctypes=None) -> str:
+	"""Write the snapshot to a file and return its path.
+
+	Used by the acceptance checks, which compare three files:
+
+	    bench --site <dev>       execute flowire.tools.parity.dump
+	    bench --site <fresh>     execute flowire.tools.parity.dump --kwargs '{"out": "/tmp/fresh.json"}'
+	    bench --site <rehearsal> execute flowire.tools.parity.dump --kwargs '{"out": "/tmp/rehearsal.json"}'
+
+	Redirecting ``bench execute`` output instead would work, but the CLI prints the
+	return value as a repr, which corrupts the JSON it is supposed to preserve.
+	"""
+	out = out or frappe.conf.get("flowire_parity_out") or "/tmp/flowire-parity.json"
+	os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
+	with open(out, "w", encoding="utf-8") as handle:
+		handle.write(snapshot_json(doctypes))
+	return out

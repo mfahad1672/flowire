@@ -84,12 +84,21 @@ BUSINESS_DOCTYPES = ("Company Bidder", "EM Banks")
 
 
 def _all(doctype, fields, filters=None):
-	"""Read every row, tolerating a doctype that is not installed."""
+	"""Read every row, tolerating a doctype that is not installed.
+
+	The requested field list is intersected with the columns the doctype actually
+	has: these doctypes gain and lose columns between Frappe majors (v16 dropped
+	``Custom Field.show_days`` and renamed Server Script's ``enabled`` to
+	``disabled``), and asking for a column that is not there aborts the whole
+	SELECT rather than skipping it.
+	"""
 	if not frappe.db.exists("DocType", doctype):
 		return {"__missing__": True}
 	try:
+		valid = set(frappe.get_meta(doctype).get_valid_columns())
+		usable = [field for field in fields if field in valid]
 		rows = frappe.get_all(
-			doctype, filters=filters or {}, fields=list(fields),
+			doctype, filters=filters or {}, fields=usable,
 			order_by="name asc", limit_page_length=0,
 		)
 		return [_plain(row) for row in rows]
