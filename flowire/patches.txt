@@ -8,3 +8,15 @@ flowire.patches.v1_0.tag_flowire_records
 
 [post_model_sync]
 # Patches in this section run after doctypes are migrated.
+
+# Turn the old Server Scripts off in the SAME migrate that activates the Python
+# doc_events in hooks.py. Deploying the code without this patch would run both
+# implementations on every save.
+flowire.patches.v1_0.disable_legacy_server_scripts
+
+# Frappe's built-in "you were assigned" email off for existing users; new rows
+# are handled by the Notification Settings before_insert doc event.
+flowire.patches.v1_0.disable_builtin_assignment_emails
+
+# Assignments made while the Server Scripts were off have no DocShare.
+flowire.patches.v1_0.backfill_assignment_shares

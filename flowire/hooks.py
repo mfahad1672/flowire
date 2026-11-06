@@ -73,8 +73,10 @@ doc_events = {
 
 # ─── Install / migrate ────────────────────────────────────────────────────────
 #
-# after_install / after_migrate will point at flowire.setup.install once
-# flowire/setup/notifications.py lands: that module generates the Notifications
-# and Email Templates from the reference database, so it is written after the
-# audit rather than guessed at here. Leaving the hooks unwired until then keeps
-# `install-app flowire` from importing a module that does not exist yet.
+# The Notifications and Email Templates are replayed from the definitions in
+# flowire/setup/data/ (captured from the reference site with
+#   bench --site <reference> execute flowire.setup.notifications.capture
+# ). Running it on every migrate keeps a site that was created before a
+# notification was added from drifting.
+after_install = "flowire.setup.install.after_install"
+after_migrate = "flowire.setup.install.after_migrate"
