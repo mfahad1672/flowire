@@ -1,0 +1,3506 @@
+{
+  "automation": {
+    "email_templates": [],
+    "notifications": [
+      {
+        "channel": "Email",
+        "document_type": "Error Log",
+        "enabled": 0,
+        "event": "New",
+        "name": "Error Log"
+      },
+      {
+        "channel": "Email",
+        "document_type": "Integration Request",
+        "enabled": 0,
+        "event": "Save",
+        "name": "Integration Request"
+      },
+      {
+        "channel": "Email",
+        "document_type": "Material Request",
+        "enabled": 1,
+        "event": "Value Change",
+        "name": "Material Request Receipt Notification"
+      },
+      {
+        "channel": "Email",
+        "document_type": "Fiscal Year",
+        "enabled": 1,
+        "event": "New",
+        "name": "Notification for new fiscal year"
+      }
+    ],
+    "server_scripts": []
+  },
+  "doctypes": {
+    "Communication": {
+      "autoname": null,
+      "fields": [
+        {
+          "fieldname": "_user_tags",
+          "fieldtype": "Data",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "additional_info",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "bcc",
+          "fieldtype": "Code",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "cc",
+          "fieldtype": "Code",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_14",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_27",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_4",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_5",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "communication_date",
+          "fieldtype": "Datetime",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "communication_medium",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "\nEmail\nChat\nPhone\nSMS\nEvent\nMeeting\nVisit\nOther",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "communication_type",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Communication\nAutomated Message",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 1
+        },
+        {
+          "fieldname": "company",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "email_account",
+          "options": "Company",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "content",
+          "fieldtype": "Text Editor",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "delivery_status",
+          "fieldtype": "Select",
+          "hidden": 1,
+          "insert_after": null,
+          "options": "\nSent\nBounced\nOpened\nMarked As Spam\nRejected\nDelayed\nSoft-Bounced\nClicked\nRecipient Unsubscribed\nError\nExpired\nSending\nRead\nScheduled",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "email_account",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email Account",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "email_inbox",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 1,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "email_status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Open\nSpam\nTrash",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "email_template",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email Template",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "has_attachment",
+          "fieldtype": "Check",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "imap_folder",
+          "fieldtype": "Data",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "in_reply_to",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Communication",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "message_id",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "phone_no",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "read_by_recipient",
+          "fieldtype": "Check",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "read_by_recipient_on",
+          "fieldtype": "Datetime",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "read_receipt",
+          "fieldtype": "Check",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "recipients",
+          "fieldtype": "Code",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "reference_doctype",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "DocType",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "reference_name",
+          "fieldtype": "Dynamic Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "reference_doctype",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "reference_owner",
+          "fieldtype": "Read Only",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "reference_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "section_break_10",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "section_break_8",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "seen",
+          "fieldtype": "Check",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "send_after",
+          "fieldtype": "Datetime",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "sender",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "sender_full_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "sent_or_received",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Sent\nReceived",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Open\nReplied\nClosed\nLinked",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "status_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "subject",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "text_content",
+          "fieldtype": "Code",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "timeline_links",
+          "fieldtype": "Table",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Communication Link",
+          "permlevel": 2,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "timeline_links_sections",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "uid",
+          "fieldtype": "Int",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "unread_notification_sent",
+          "fieldtype": "Check",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "user",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        }
+      ],
+      "is_custom": 0,
+      "permissions": {
+        "custom_docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 1,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 1,
+            "email": 1,
+            "export": 0,
+            "if_owner": 1,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "All",
+            "share": 0,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 0,
+            "role": "Inbox User",
+            "share": 0,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 1,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 2,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "effective": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 1,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ]
+      },
+      "property_setters": []
+    },
+    "Company Bidder": {
+      "autoname": "field:company_name",
+      "fields": [
+        {
+          "fieldname": "address",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "company_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "email",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "phone",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        }
+      ],
+      "is_custom": 0,
+      "permissions": {
+        "custom_docperm": [],
+        "docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "System Manager",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "effective": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "System Manager",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ]
+      },
+      "property_setters": []
+    },
+    "EM Banks": {
+      "autoname": "field:bank_name",
+      "fields": [
+        {
+          "fieldname": "bank_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "branch",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "swift",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        }
+      ],
+      "is_custom": 0,
+      "permissions": {
+        "custom_docperm": [],
+        "docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "System Manager",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "effective": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "System Manager",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ]
+      },
+      "property_setters": []
+    },
+    "Lead": {
+      "autoname": "naming_series:",
+      "fields": [
+        {
+          "fieldname": "activities_tab",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "address_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "address_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "all_activities_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "all_activities_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "annual_revenue",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "blog_subscriber",
+          "fieldtype": "Check",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "city",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "col_break123",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break2",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_1",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_16",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_20",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_22",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_28",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_31",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_38",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_50",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_64",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_gkxo",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "company",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Company",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "company_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_info_tab",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "country",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Country",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_currency_name",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_probability",
+          "options": "Currency",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_estimated_value",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": "custom_expected_close_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_expected_close_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_submission_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_lead_status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": "status",
+          "options": "New\nContacted\nNurturing\nQualified\nUnqualified\nConverted\nLost",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_probability",
+          "fieldtype": "Percent",
+          "hidden": 0,
+          "insert_after": "custom_estimated_value",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_project_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "company_name",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "custom_stage_1",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_lead_status",
+          "options": "Sales Stage",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_submission_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "expected_close_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_whatsapp_no",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "mobile_no",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "customer",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Customer",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "dashboard_tab",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "disabled",
+          "fieldtype": "Check",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "email_id",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "fax",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "first_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "gender",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Gender",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "image",
+          "fieldtype": "Attach Image",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "industry",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Industry Type",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "job_title",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "language",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Language",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "last_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "lead_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "lead_owner",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "market_segment",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Market Segment",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "middle_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "mobile_no",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Phone",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "naming_series",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "CRM-LEAD-.YYYY.-",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "no_of_employees",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "1-10\n11-50\n51-200\n201-500\n501-1000\n1000+",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "notes",
+          "fieldtype": "Table",
+          "hidden": 1,
+          "insert_after": null,
+          "options": "CRM Note",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "notes_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "notes_tab",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "open_activities_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "organization_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "other_info_tab",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "phone",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Phone",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "phone_ext",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "qualification_status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Unqualified\nIn Process\nQualified",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "qualification_tab",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "qualified_by",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "qualified_on",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "request_type",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "\nProduct Enquiry\nRequest for Information\nSuggestions\nOther",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "salutation",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Salutation",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "state",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Lead\nOpen\nReplied\nOpportunity\nQuotation\nLost Quotation\nInterested\nConverted\nDo Not Contact",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "territory",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Territory",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "title",
+          "fieldtype": "Data",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "type",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "\nClient\nChannel Partner\nConsultant",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "unsubscribed",
+          "fieldtype": "Check",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_analytics_section",
+          "fieldtype": "Section Break",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_campaign",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "UTM Campaign",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_content",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_medium",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "UTM Medium",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_source",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "UTM Source",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "website",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "whatsapp_no",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Phone",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        }
+      ],
+      "is_custom": 0,
+      "permissions": {
+        "custom_docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 1,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 0,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 1,
+            "print": 0,
+            "read": 1,
+            "report": 1,
+            "role": "Desk User",
+            "share": 0,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 0,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 1,
+            "print": 0,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 0,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales User",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 0,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 1,
+            "print": 0,
+            "read": 1,
+            "report": 1,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 0,
+            "email": 0,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 0,
+            "report": 0,
+            "role": "Support Team",
+            "share": 0,
+            "submit": 0,
+            "write": 0
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "effective": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 1,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ]
+      },
+      "property_setters": [
+        {
+          "doc_type": "Lead",
+          "field_name": null,
+          "is_system_generated": 0,
+          "module": "Flowire",
+          "property": "track_changes",
+          "property_type": "Check",
+          "value": "1"
+        },
+        {
+          "doc_type": "Lead",
+          "field_name": "utm_analytics_section",
+          "is_system_generated": 1,
+          "module": null,
+          "property": "hidden",
+          "property_type": "Check",
+          "value": "1"
+        }
+      ]
+    },
+    "Opportunity": {
+      "autoname": "naming_series:",
+      "fields": [
+        {
+          "fieldname": "activities_tab",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "address_contact_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "address_display",
+          "fieldtype": "Text Editor",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "address_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "all_activities_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "all_activities_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "amended_from",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Opportunity",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "annual_revenue",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "base_opportunity_amount",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Company:company:default_currency",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "base_total",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Company:company:default_currency",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "city",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break0",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break1",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break3",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_10",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_17",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_22",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_23",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_31",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_33",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_36",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_54",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_56",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_emai",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "company",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Company",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "competitors",
+          "fieldtype": "Table MultiSelect",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Competitor Detail",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_display",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_email",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Email",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_info",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "fa fa-bullhorn",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_mobile",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Phone",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "contact_person",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Contact",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "conversion_rate",
+          "fieldtype": "Float",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "country",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Country",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "currency",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Currency",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_account_manager",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_submitted_by__person",
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_bid_security",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": "source",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_bidder_name",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "language",
+          "options": "Company Bidder",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_company_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "custom_project_name",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em__pg_details",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": "items",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_account_manager",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_submitted_by_person",
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_amount",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_submission_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_bank",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_submitted_by_entity",
+          "options": "EM Banks",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_type",
+          "options": "\nPending\nReleased",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_submission_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_status",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_submitted_by_entity",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_valid_till",
+          "options": "Company Bidder",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_submitted_by_person",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_bank",
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_type",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": "custom_bidder_name",
+          "options": "\nBid Security\nPerformance Guarantee",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_pg_valid_till",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_em_pg_amount",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_em_submission_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_status_pendingreleased",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_opportunity_status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": "status",
+          "options": "New\nOpen\nIn Review\nConverted\nWon\nLost",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_performance_gaurantee",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": "custom_remarks",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_account_manager_",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_pg_submitted_by__person",
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_amount",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": "custom_pg_status",
+          "options": "currency",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_bidder_name",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_performance_gaurantee",
+          "options": "Company Bidder",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_po_no",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "custom_pg_account_manager_",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_release_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_pg_validity",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_remarks",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": "custom_pg_release_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": "custom_pg_po_no",
+          "options": "Not Required\nPending\nSubmitted\nReleased",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_submission_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_pg_amount",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_submitted_by__person",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "custom_pg_submitted_by_entity_",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_submitted_by_entity_",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_pg_bidder_name",
+          "options": "Company Bidder",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_pg_validity",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_pg_submission_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_po_no",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "custom_account_manager",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_project_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "party_name",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "custom_release_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_valid_till",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_remarks",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": "custom_release_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_status_pendingreleased",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": "custom_po_no",
+          "options": "Not Required\nPending\nSubmitted\nReleased",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_submission_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "expected_closing",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_submitted_by__person",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": "custom_submitted_by_entity",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_submitted_by_entity",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": "custom_em__pg_details",
+          "options": "Company Bidder",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "custom_valid_till",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": "custom_em_submission_date",
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "customer_address",
+          "fieldtype": "Link",
+          "hidden": 1,
+          "insert_after": null,
+          "options": "Address",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "customer_group",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Customer Group",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "customer_name",
+          "fieldtype": "Data",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "dashboard_tab",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "expected_closing",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "first_response_time",
+          "fieldtype": "Duration",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "industry",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Industry Type",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "items",
+          "fieldtype": "Table",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Opportunity Item",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "items_section",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "fa fa-shopping-cart",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "job_title",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "language",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Language",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "lost_detail_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "lost_on",
+          "fieldtype": "Date",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "lost_reasons",
+          "fieldtype": "Table MultiSelect",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Opportunity Lost Reason Detail",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "market_segment",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Market Segment",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "more_info",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "fa fa-file-text",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "naming_series",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "CRM-OPP-.YYYY.-",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "no_of_employees",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "1-10\n11-50\n51-200\n201-500\n501-1000\n1000+",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "notes",
+          "fieldtype": "Table",
+          "hidden": 1,
+          "insert_after": null,
+          "options": "CRM Note",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "notes_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "notes_tab",
+          "fieldtype": "Tab Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "open_activities_html",
+          "fieldtype": "HTML",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "opportunity_amount",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "currency",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "opportunity_from",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "DocType",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "opportunity_owner",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "opportunity_type",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Opportunity Type",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "order_lost_reason",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "organization_details_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "party_name",
+          "fieldtype": "Dynamic Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "opportunity_from",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "phone",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Phone",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "phone_ext",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "primary_contact_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "probability",
+          "fieldtype": "Percent",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "sales_stage",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Sales Stage",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "section_break_14",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "section_break_32",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "state",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Open\nQuotation\nConverted\nLost\nReplied\nClosed",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "territory",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Territory",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "title",
+          "fieldtype": "Data",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "total",
+          "fieldtype": "Currency",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "currency",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "transaction_date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "utm_analytics_section",
+          "fieldtype": "Section Break",
+          "hidden": 1,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_campaign",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "UTM Campaign",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_content",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_medium",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "UTM Medium",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "utm_source",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "UTM Source",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "website",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "whatsapp",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Phone",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        }
+      ],
+      "is_custom": 0,
+      "permissions": {
+        "custom_docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 1,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales User",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "effective": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 1,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ]
+      },
+      "property_setters": [
+        {
+          "doc_type": "Opportunity",
+          "field_name": null,
+          "is_system_generated": 0,
+          "module": "Flowire",
+          "property": "track_changes",
+          "property_type": "Check",
+          "value": "1"
+        },
+        {
+          "doc_type": "Opportunity",
+          "field_name": "utm_analytics_section",
+          "is_system_generated": 1,
+          "module": null,
+          "property": "hidden",
+          "property_type": "Check",
+          "value": "1"
+        }
+      ]
+    },
+    "ToDo": {
+      "autoname": "hash",
+      "fields": [
+        {
+          "fieldname": "allocated_to",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "assigned_by",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "User",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "assigned_by_full_name",
+          "fieldtype": "Read Only",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "assignment_rule",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Assignment Rule",
+          "permlevel": 0,
+          "read_only": 1,
+          "reqd": 0
+        },
+        {
+          "fieldname": "color",
+          "fieldtype": "Color",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_10",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "column_break_2",
+          "fieldtype": "Column Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "date",
+          "fieldtype": "Date",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "description",
+          "fieldtype": "Text Editor",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        },
+        {
+          "fieldname": "description_and_status",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "description_section",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "priority",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "High\nMedium\nLow",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "reference_name",
+          "fieldtype": "Dynamic Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "reference_type",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "reference_type",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "DocType",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "role",
+          "fieldtype": "Link",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Role",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "section_break_6",
+          "fieldtype": "Section Break",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "sender",
+          "fieldtype": "Data",
+          "hidden": 1,
+          "insert_after": null,
+          "options": "Email",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "status",
+          "fieldtype": "Select",
+          "hidden": 0,
+          "insert_after": null,
+          "options": "Open\nClosed\nCancelled",
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        }
+      ],
+      "is_custom": 0,
+      "permissions": {
+        "custom_docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 0,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "All",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 0,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "effective": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 0,
+            "delete": 0,
+            "email": 0,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 0,
+            "read": 1,
+            "report": 0,
+            "role": "Sales User",
+            "share": 0,
+            "submit": 0,
+            "write": 1
+          }
+        ]
+      },
+      "property_setters": []
+    }
+  }
+}
