@@ -35,7 +35,24 @@ COUNT_DOCTYPES = [
     "EM Banks",
 ]
 
-SAFE_CONFIG_KEYS = ("db_name", "host_name", "developer_mode", "installed_apps")
+SAFE_CONFIG_KEYS = (
+    "db_name",
+    "host_name",
+    "developer_mode",
+    "installed_apps",
+    "mute_emails",
+)
+
+# `developer_mode` (and mute_emails / maintenance_mode) are normally set on the
+# BENCH in sites/common_site_config.json, not per site. Reading only the site
+# file reports `None` even when the bench has it enabled — so both files are
+# read and the site value wins when it is actually set.
+COMMON_CONFIG_KEYS = (
+    "developer_mode",
+    "mute_emails",
+    "maintenance_mode",
+    "socketio_port",
+)
 
 # `User` always has rows (Administrator, Guest) on every site ever created, so it
 # must never count towards "does this site hold business data" — otherwise a
@@ -63,6 +80,19 @@ def read_config(site: str) -> dict:
     except Exception as exc:  # noqa: BLE001 - report, never crash the report
         return {"_error": str(exc)}
     return {k: raw.get(k) for k in SAFE_CONFIG_KEYS if k in raw}
+
+
+def read_common_config() -> dict:
+    """Bench-wide settings from sites/common_site_config.json (safe keys only)."""
+    path = os.path.join(SITES_DIR, "common_site_config.json")
+    try:
+        with open(path) as fh:
+            raw = json.load(fh)
+    except FileNotFoundError:
+        return {}
+    except Exception:  # noqa: BLE001 - a broken bench config must not stop the report
+        return {"_error": "unreadable"}
+    return {k: raw.get(k) for k in COMMON_CONFIG_KEYS if k in raw}
 
 
 def bench(*args: str, timeout: int = 120) -> tuple[int, str]:
@@ -112,6 +142,15 @@ def main() -> int:
     print("SITES  (bench-local, read-only report)")
     print("=" * 72)
 
+    common = read_common_config()
+    print("\n-- bench-wide (sites/common_site_config.json) --")
+    if not common:
+        print("  (not found)")
+    else:
+        for key in COMMON_CONFIG_KEYS:
+            if key in common:
+                print(f"  {key:18s}: {common[key]}")
+
     for entry in entries:
         kind, target = classify(entry)
         if kind == "symlink":
@@ -139,7 +178,21 @@ def main() -> int:
 
         print(f"  db_name         : {cfg.get('db_name')}")
         print(f"  host_name       : {cfg.get('host_name')}")
-        print(f"  developer_mode  : {cfg.get('developer_mode')}")
+        # Fall back to the bench-wide value: developer_mode is normally set on
+        # the bench, so the site file alone would misleadingly print None.
+        dev_site = cfg.get("developer_mode")
+        dev_eff = dev_site if dev_site is not None else common.get("developer_mode")
+        source = "site" if dev_site is not None else "bench"
+        print(f"  developer_mode  : {dev_eff}  (from {source})")
+
+        # Non-prod sites MUST mute email, otherwise a restored Notification can
+        # reach real users. Worth surfacing loudly rather than quietly omitting.
+        mute_site = cfg.get("mute_emails")
+        mute_eff = mute_site if mute_site is not None else common.get("mute_emails")
+        if mute_eff in (1, True, "1"):
+            print("  mute_emails     : ON")
+        else:
+            print("  mute_emails     : OFF  <-- emails CAN be sent from this site")
 
         code, out = bench("--site", site, "list-apps", timeout=120)
         if code == 0:
