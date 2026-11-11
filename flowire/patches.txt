@@ -2,6 +2,12 @@
 # Patches in this section run before doctypes are migrated.
 # Docs: https://frappeframework.com/docs/user/en/database-migrations
 
+# Hand the script-created 'Lead Source' DocType (custom=1, module=CRM) over to the
+# definition shipped in flowire/flowire/doctype/lead_source/, without dropping its
+# table or its 14 rows. Before the tag patch below, so the very same migrate that
+# adds the file also owns it.
+flowire.patches.v1_0.own_lead_source
+
 # Tag our schema customizations with module = "Flowire" so the fixture filters in
 # hooks.py can find them.
 flowire.patches.v1_0.tag_flowire_records

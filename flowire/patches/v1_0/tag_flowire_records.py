@@ -14,8 +14,14 @@ and Opportunity". A tenant can add their own columns to Lead from the UI
 ours would export them into this app and then push them into every *other*
 tenant. That is the one bug this whole file exists to prevent.
 
+``source``, ``campaign`` and ``campaign_name`` are on the list even though they are
+not ``custom_*``: ERPNext **v16 dropped them** (measured on erpnext 16.54 — no
+DocField of those names on Lead or Opportunity), so on this bench they only exist
+as Custom Fields with a blank module, and a fresh site would have no Source or
+Campaign field at all. They are therefore ours to carry, in fixtures as well.
+
 GENERATED from ``docs/audit-before.json`` (see ``docs/inventory.md``), not typed
-by hand: 46 Custom Fields and 2 Property Setters were approved
+by hand: 50 Custom Fields and 2 Property Setters were approved
 on the reference site. Re-run the audit and update both lists if the reference
 site changes.
 
@@ -28,10 +34,11 @@ import frappe
 MODULE = "Flowire"
 
 # Exact list from the audit: every non-system ``custom_*`` Custom Field on Lead and
-# Opportunity. Excluded on purpose: ``source``, ``campaign`` and ``campaign_name`` —
-# those are NATIVE ERPNext v15 fields that the v16 reference bench had to restore
-# as Custom Fields, so exporting them would add a duplicate column on v15.
+# Opportunity, plus the three fields ERPNext v16 no longer ships (see above) — which
+# is also why nothing here may be filtered by ``source*`` alone: an ERPNext v15 site
+# still has those three natively, and the guard below skips them there.
 OUR_CUSTOM_FIELDS = (
+	"Lead-campaign_name",
 	"Lead-custom_currency_name",
 	"Lead-custom_estimated_value",
 	"Lead-custom_expected_close_date",
@@ -41,6 +48,8 @@ OUR_CUSTOM_FIELDS = (
 	"Lead-custom_stage_1",
 	"Lead-custom_submission_date",
 	"Lead-custom_whatsapp_no",
+	"Lead-source",
+	"Opportunity-campaign",
 	"Opportunity-custom_account_manager",
 	"Opportunity-custom_bid_security",
 	"Opportunity-custom_bidder_name",
@@ -78,6 +87,7 @@ OUR_CUSTOM_FIELDS = (
 	"Opportunity-custom_submitted_by__person",
 	"Opportunity-custom_submitted_by_entity",
 	"Opportunity-custom_valid_till",
+	"Opportunity-source",
 )
 
 # Property Setters we create: Track Changes ON for the audit trail, from

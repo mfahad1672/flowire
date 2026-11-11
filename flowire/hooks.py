@@ -21,7 +21,7 @@ required_apps = ["erpnext"]
 
 # ─── Fixtures ─────────────────────────────────────────────────────────────────
 #
-# Two rules matter more than anything else in this file:
+# The three rules below matter more than anything else in this file:
 #
 #   1. Filter Custom Field / Property Setter by `module` — NEVER by `dt` alone.
 #      A `dt`-only filter would capture a customization a *site* created from the
@@ -32,16 +32,54 @@ required_apps = ["erpnext"]
 #      doctype's standard permissions as soon as it has a single Custom DocPerm
 #      row, so a role-filtered export revokes access from every role it omits.
 #
-# The parent list below is the set from scripts/setup-erpnext.mjs (§1 #6 of the
-# plan). Confirm it against the audit output before the first
-# `bench export-fixtures`, and extend it if the audit finds another parent.
+#   3. The four fields in VERSION_DEPENDENT_FIELDS are app-owned but NOT fixtures:
+#      ERPNext v15 ships them natively and v16 dropped them, so a fixture would add
+#      a duplicate column on v15. `flowire.setup.schema` creates them instead, per
+#      site, against what the doctype actually has. Keep the two lists in step.
+#
+# The Custom DocPerm parent list is the set from scripts/setup-erpnext.mjs
+# (§1 #6 of the plan), extended with the three CRM doctypes that carry their own
+# permissions on some sites (Prospect, Company Bidder, EM Banks — a site with none
+# simply exports nothing for them). Confirm it against the audit output before the
+# first `bench export-fixtures`, and extend it if the audit finds another parent.
+VERSION_DEPENDENT_FIELDS = (
+	"Lead-source",
+	"Lead-campaign_name",
+	"Opportunity-source",
+	"Opportunity-campaign",
+)
+
 fixtures = [
-	{"dt": "Custom Field", "filters": [["module", "=", "Flowire"]]},
+	{
+		"dt": "Custom Field",
+		"filters": [
+			["module", "=", "Flowire"],
+			["name", "not in", VERSION_DEPENDENT_FIELDS],
+		],
+	},
 	{"dt": "Property Setter", "filters": [["module", "=", "Flowire"]]},
 	{
 		"dt": "Custom DocPerm",
-		"filters": [["parent", "in", ["Lead", "Opportunity", "Communication", "ToDo"]]],
+		"filters": [
+			[
+				"parent",
+				"in",
+				[
+					"Lead",
+					"Opportunity",
+					"Communication",
+					"ToDo",
+					"Prospect",
+					"Company Bidder",
+					"EM Banks",
+				],
+			],
+		],
 	},
+	# The option list behind Lead.source / Opportunity.source. The rows travel as a
+	# fixture (`flowire/fixtures/lead_source.json`); the definition ships as a file in
+	# `flowire/flowire/doctype/lead_source/`, so a fresh site gets both.
+	{"dt": "Lead Source"},
 ]
 
 # ─── Doc events ───────────────────────────────────────────────────────────────
