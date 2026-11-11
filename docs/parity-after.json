@@ -1,142 +1,19 @@
 {
   "automation": {
-    "email_templates": [
-      {
-        "name": "Dispatch Notification"
-      },
-      {
-        "name": "Exit Questionnaire Notification"
-      },
-      {
-        "name": "Interview Feedback Reminder"
-      },
-      {
-        "name": "Interview Reminder"
-      },
-      {
-        "name": "Leave Application Notification"
-      }
-    ],
-    "notifications": [
-      {
-        "channel": "Email",
-        "document_type": "Error Log",
-        "enabled": 0,
-        "event": "New",
-        "name": "Error Log"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Exit Interview",
-        "enabled": 1,
-        "event": "Days Before",
-        "name": "Exit Interview Scheduled"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Integration Request",
-        "enabled": 0,
-        "event": "Save",
-        "name": "Integration Request"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Leave Application",
-        "enabled": 1,
-        "event": "Cancel",
-        "name": "Leave Application Cancelled"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Leave Application",
-        "enabled": 1,
-        "event": "Save",
-        "name": "Leave Application Pending Approval"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Leave Application",
-        "enabled": 1,
-        "event": "Submit",
-        "name": "Leave Application Status Update"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Material Request",
-        "enabled": 1,
-        "event": "Value Change",
-        "name": "Material Request Receipt Notification"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Fiscal Year",
-        "enabled": 1,
-        "event": "New",
-        "name": "Notification for new fiscal year"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Retention Bonus",
-        "enabled": 1,
-        "event": "Days Before",
-        "name": "Retention Bonus"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Training Result",
-        "enabled": 1,
-        "event": "Submit",
-        "name": "Training Feedback"
-      },
-      {
-        "channel": "Email",
-        "document_type": "Training Event",
-        "enabled": 1,
-        "event": "Submit",
-        "name": "Training Scheduled"
-      }
-    ],
-    "server_scripts": [
-      {
-        "disabled": 1,
-        "doctype_event": "After Save",
-        "name": "CRM Share Lead on Owner Set",
-        "reference_doctype": "Lead",
-        "script_type": "DocType Event"
-      },
-      {
-        "disabled": 1,
-        "doctype_event": "After Insert",
-        "name": "CRM Share Lead-Opp on Assignment",
-        "reference_doctype": "ToDo",
-        "script_type": "DocType Event"
-      },
-      {
-        "disabled": 1,
-        "doctype_event": "After Save",
-        "name": "CRM Share Opportunity on Owner Set",
-        "reference_doctype": "Opportunity",
-        "script_type": "DocType Event"
-      },
-      {
-        "disabled": 1,
-        "doctype_event": "After Save",
-        "name": "CRM Unshare Lead-Opp on Cancel",
-        "reference_doctype": "ToDo",
-        "script_type": "DocType Event"
-      },
-      {
-        "disabled": 1,
-        "doctype_event": "Before Delete",
-        "name": "CRM Unshare Lead-Opp on Delete",
-        "reference_doctype": "ToDo",
-        "script_type": "DocType Event"
-      }
-    ]
+    "email_templates": [],
+    "enabled_server_scripts": [],
+    "notifications": []
   },
   "doctypes": {
     "Communication": {
       "autoname": null,
+      "custom_fields": {
+        "owned": 0,
+        "total": 1,
+        "unowned": [
+          "company"
+        ]
+      },
       "fields": [
         {
           "fieldname": "_user_tags",
@@ -741,6 +618,11 @@
     },
     "Company Bidder": {
       "autoname": "field:company_name",
+      "custom_fields": {
+        "owned": 0,
+        "total": 0,
+        "unowned": []
+      },
       "fields": [
         {
           "fieldname": "address",
@@ -829,6 +711,11 @@
     },
     "EM Banks": {
       "autoname": "field:bank_name",
+      "custom_fields": {
+        "owned": 0,
+        "total": 0,
+        "unowned": []
+      },
       "fields": [
         {
           "fieldname": "bank_name",
@@ -907,6 +794,11 @@
     },
     "Lead": {
       "autoname": "naming_series:",
+      "custom_fields": {
+        "owned": 11,
+        "total": 11,
+        "unowned": []
+      },
       "fields": [
         {
           "fieldname": "activities_tab",
@@ -1980,8 +1872,154 @@
         }
       ]
     },
+    "Lead Source": {
+      "autoname": "field:source_name",
+      "custom_fields": {
+        "owned": 0,
+        "total": 0,
+        "unowned": []
+      },
+      "fields": [
+        {
+          "fieldname": "details",
+          "fieldtype": "Small Text",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 0
+        },
+        {
+          "fieldname": "source_name",
+          "fieldtype": "Data",
+          "hidden": 0,
+          "insert_after": null,
+          "options": null,
+          "permlevel": 0,
+          "read_only": 0,
+          "reqd": 1
+        }
+      ],
+      "is_custom": 0,
+      "permissions": {
+        "custom_docperm": [],
+        "docperm": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales User",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ],
+        "effective": [
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "Sales User",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          },
+          {
+            "amend": 0,
+            "cancel": 0,
+            "create": 1,
+            "delete": 1,
+            "email": 1,
+            "export": 1,
+            "if_owner": 0,
+            "permlevel": 0,
+            "print": 1,
+            "read": 1,
+            "report": 1,
+            "role": "System Manager",
+            "share": 1,
+            "submit": 0,
+            "write": 1
+          }
+        ]
+      },
+      "property_setters": []
+    },
     "Opportunity": {
       "autoname": "naming_series:",
+      "custom_fields": {
+        "owned": 39,
+        "total": 39,
+        "unowned": []
+      },
       "fields": [
         {
           "fieldname": "activities_tab",
@@ -3382,6 +3420,11 @@
     },
     "ToDo": {
       "autoname": "hash",
+      "custom_fields": {
+        "owned": 0,
+        "total": 0,
+        "unowned": []
+      },
       "fields": [
         {
           "fieldname": "allocated_to",
@@ -3643,5 +3686,12 @@
       },
       "property_setters": []
     }
+  },
+  "status_options": {
+    "Lead.custom_lead_status": "New\nContacted\nNurturing\nQualified\nUnqualified\nConverted\nLost",
+    "Opportunity.custom_opportunity_status": "New\nOpen\nIn Review\nConverted\nWon\nLost",
+    "Opportunity.custom_pg_status": "Not Required\nPending\nSubmitted\nReleased",
+    "Opportunity.custom_stage_1": null,
+    "Opportunity.custom_status_pendingreleased": "Not Required\nPending\nSubmitted\nReleased"
   }
 }

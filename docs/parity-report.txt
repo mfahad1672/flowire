@@ -1,0 +1,4 @@
+left  /tmp/parity-flowire.json
+right /tmp/parity-fresh.json
+
+PARITY PASS — the two sites are identical where it matters

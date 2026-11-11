@@ -88,21 +88,32 @@ Released | 0 | custom_po_no |
 | 45 | Opportunity-custom_submitted_by_entity | Opportunity | custom_submitted_by_entity | Link | Company Bidder | 0 | custom_em__pg_details |
 | 46 | Opportunity-custom_valid_till | Opportunity | custom_valid_till | Date |  | 0 | custom_em_submission_date |
 
-### 1a. Deliberately EXCLUDED — needs your decision
+### 1a. App-owned, but created in code rather than exported as a fixture (4)
 
-These are non-system Custom Fields on Lead/Opportunity that are **native ERPNext v15
-fields**, restored here as Custom Fields only because the v16 reference bench dropped
-them. Shipping them in the app would add a duplicate column on v15.
+These are non-system Custom Fields on Lead/Opportunity that were **native ERPNext v15
+fields** and were restored here as Custom Fields only because ERPNext **v16 dropped
+them** (measured on erpnext 16.54: no `DocField` of these names on either doctype).
+They are still ours — a fresh v16 site is unusable for the frontend without them —
+but they cannot travel as a fixture: Frappe would try to add a second column on v15,
+where the doctype already owns the name.
 
-| name | dt | fieldname | type | why excluded |
-|---|---|---|---|---|
-| Lead-campaign_name | Lead | campaign_name | Link | native in ERPNext v15 |
-| Lead-source | Lead | source | Link | native in ERPNext v15 |
-| Opportunity-campaign | Opportunity | campaign | Link | native in ERPNext v15 |
-| Opportunity-source | Opportunity | source | Link | native in ERPNext v15 |
+`flowire/setup/schema.py` therefore creates them per site, guarded by what the doctype
+actually has (already a Custom Field → adopt and re-stamp `module=Flowire`; a stock
+DocField → leave alone; a bare column → leave alone; nothing → create it). `hooks.py`
+excludes exactly these four names from the Custom Field fixture filter, and
+`flowire/tests/test_ownership.py` asserts the two lists stay in step.
 
-**Ask:** confirm these stay out. If production genuinely has them as Custom Fields,
-they must come back in — but then they need a name collision guard on v15.
+| name | dt | fieldname | type | options | insert_after |
+|---|---|---|---|---|---|
+| Lead-source | Lead | source | Link | Lead Source | status |
+| Lead-campaign_name | Lead | campaign_name | Link | Campaign | source |
+| Opportunity-source | Opportunity | source | Link | Lead Source | status |
+| Opportunity-campaign | Opportunity | campaign | Link | Campaign | source |
+
+**Resolved** (was "needs your decision"): the ownership probe fails with these four
+unowned, so they cannot stay out. Measured after the change: `CF Lead total=11
+Flowire=11 unowned=0` and `CF Opportunity total=39 Flowire=39 unowned=0` on both
+`flowire.local` and a fresh `fresh.localhost`.
 
 ### 1b. Non-system Custom Fields on other doctypes
 
@@ -221,8 +232,17 @@ Matches the plan's expectation (none).
 
 ## 5. Decisions needed before the fixture export
 
-1. Confirm the **46** Custom Fields in §1.
-2. Confirm the **4** exclusions in §1a (native v15 fields).
-3. Confirm **2** Property Setters in §2a, and rule on `Contact.search_fields` in §2b.
-4. Confirm the Custom DocPerm parent list in §3.
-5. Accept that this bench has **no CRM Notifications / Email Templates** to port.
+All resolved — see `docs/ownership-v16.md` for the measured result.
+
+1. ~~Confirm the **46** Custom Fields in §1.~~ Confirmed and exported; the count of
+   fields the app owns is **50** (46 fixtures + 4 created in code, §1a).
+2. ~~Confirm the **4** exclusions in §1a.~~ They are app-owned, created per site by
+   `flowire/setup/schema.py` — not fixtures, see §1a.
+3. **2** Property Setters in §2a confirmed. `Contact.search_fields` in §2b stays out
+   (matches no documented setup step).
+4. Custom DocPerm parent list confirmed and extended with `Prospect`,
+   `Company Bidder`, `EM Banks` (a site with none exports nothing for them).
+5. Accepted: this bench has **no CRM Notifications / Email Templates** to port, so
+   `flowire/setup/data/` is still empty and `notifications.sync()` logs a warning and
+   returns. Parity compares only the app's own set of both, which are empty on both
+   sites — the gap is real but it does not differ between sites.
