@@ -123,6 +123,37 @@ Frappe read permissions. If any visible employee lacks a holiday calendar coveri
 period, aggregate utilization is `null` and the response includes a warning rather than reporting
 a partial percentage.
 
+The executive summary degrades rather than failing when the caller may not read Employee records:
+`employee_utilization.permitted` is `false`, `utilization_percentage` and `available_hours` are
+`null`, counts and hours are zero, and a warning explains why. Project financials are still
+returned. Employee records are not read at all in that path. `permitted` is `true` whenever
+utilization was actually computed, so a consumer can distinguish "cannot see it" from "no data".
+The dedicated `get_employee_summary` endpoint is unchanged and still refuses such callers, because
+it has nothing else to return.
+
+### Verified role matrix (staging, 2026-11-17)
+
+Read access at permission level 0, and the resulting `get_executive_summary` behaviour:
+
+| Role | Company | Project | Employee | Executive summary |
+|---|---|---|---|---|
+| System Manager / Administrator | read | read | read | full |
+| Accounts Manager | read | read | read | full |
+| HR Manager | read | read | read | full |
+| Projects Manager | **no read** | read | read | **403: company** |
+| Projects User | read | read | no read | 403: role gate |
+| Sales Manager / Sales User | read | no read | — | 403: role gate |
+
+Two consequences worth planning for:
+
+1. **Projects Manager cannot use the executive dashboard**, because standard ERPNext grants that
+   role no `Company` read (while it does grant `Employee` read). The utilization degradation does
+   not help them — the request fails at the company check. Enabling them requires granting
+   `Company` read to the role; the endpoint is deliberately company-scoped, so it is not degraded.
+2. With stock roles, no role that passes the `PROJECT_COSTING_ROLES` gate lacks `Employee` read,
+   so the degradation is defence-in-depth for custom or future role sets rather than a fix for a
+   standard role today.
+
 Project financial access is limited to System Manager, Accounts Manager, Projects Manager, and HR
 Manager, and still checks Company and Project read permission. Employee-rate details are limited to
 System Manager, Accounts Manager, and HR Manager, and still check Employee read permission.

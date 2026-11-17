@@ -247,6 +247,29 @@ class TestProjectCostingCalculations(IntegrationTestCase):
 		self.assertIsNone(summary["available_hours"])
 		self.assertIsNone(summary["utilization_percentage"])
 		self.assertEqual(summary["employees_missing_capacity"], 1)
+		self.assertTrue(summary["permitted"])
+
+	def test_executive_utilization_degrades_when_employee_read_is_denied(self):
+		with (
+			patch("flowire.flowire.project_costing.frappe.has_permission", return_value=False),
+			patch("flowire.flowire.project_costing.frappe.get_list") as get_list,
+		):
+			summary = _executive_employee_utilization(
+				"COMPANY-1",
+				date(2026, 11, 1),
+				date(2026, 11, 30),
+			)
+
+		self.assertFalse(summary["permitted"])
+		self.assertIsNone(summary["utilization_percentage"])
+		self.assertIsNone(summary["available_hours"])
+		self.assertFalse(summary["capacity_complete"])
+		self.assertEqual(summary["employee_count"], 0)
+		self.assertEqual(summary["actual_hours"], 0)
+		self.assertEqual(len(summary["warnings"]), 1)
+		self.assertIn("do not have permission to read Employee", summary["warnings"][0])
+		# Employee records must not be read at all when permission is denied.
+		get_list.assert_not_called()
 
 	def test_executive_summary_uses_company_projects_and_selected_utilization_period(self):
 		project_summaries = [

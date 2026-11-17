@@ -628,9 +628,36 @@ def _aggregate_executive_projects(projects: list[dict]) -> dict:
 	}
 
 
+def _utilization_unavailable(start_date, end_date, reason: str) -> dict:
+	"""Utilization shape returned when the caller may not read Employee records.
+
+	The executive summary still returns project financials, but never a partial or zero
+	utilization figure that could be mistaken for a measured value.
+	"""
+	return {
+		"period_start": start_date,
+		"period_end": end_date,
+		"permitted": False,
+		"employee_count": 0,
+		"employees_with_timesheets": 0,
+		"employees_with_capacity": 0,
+		"employees_missing_capacity": 0,
+		"actual_hours": 0,
+		"available_hours": None,
+		"capacity_complete": False,
+		"utilization_percentage": None,
+		"warnings": [reason],
+	}
+
+
 def _executive_employee_utilization(company: str, start_date, end_date) -> dict:
 	if not frappe.has_permission("Employee", "read"):
-		frappe.throw("You do not have permission to view employee utilization.", frappe.PermissionError)
+		return _utilization_unavailable(
+			start_date,
+			end_date,
+			"Employee utilization is unavailable because you do not have permission to read "
+			"Employee records.",
+		)
 
 	employee_fields = {field.fieldname for field in frappe.get_meta("Employee").fields}
 	fields = ["name", "company", "holiday_list", "date_of_joining"]
@@ -688,6 +715,7 @@ def _executive_employee_utilization(company: str, start_date, end_date) -> dict:
 	return {
 		"period_start": start_date,
 		"period_end": end_date,
+		"permitted": True,
 		"employee_count": len(employees),
 		"employees_with_timesheets": sum(
 			actual_hours_by_employee.get(employee, 0) > 0 for employee in employee_names
