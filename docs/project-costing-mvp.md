@@ -109,14 +109,23 @@ All endpoints are authenticated, role-gated, and read-only:
 - `flowire.flowire.project_costing.get_employee_summary(employee, start_date, end_date)` —
   assignments, period planned/actual/available hours, utilization, current rate, and project labor
   contribution. Defaults to month-to-date.
+- `flowire.flowire.project_costing.get_executive_summary(company, start_date, end_date)` —
+  company-currency project totals, counts, overdue projects, top five profitable and loss-making
+  projects, data warnings, and aggregate employee utilization. The date range defaults to
+  month-to-date and applies to employee utilization; project financials are cumulative as of the
+  request date.
 
-The Executive Dashboard aggregation endpoint is not part of this backend slice yet; build it with
-the executive dashboard integration so company-currency totals and utilization rollups can be
-validated together.
+Executive totals require one company so amounts are never added across currencies. Active projects
+exclude Completed and Cancelled. Average Margin is the weighted company margin
+(`total profit ÷ total actual revenue`), not an arithmetic average of project margins. The top and
+loss lists contain up to five projects each. Project and employee records follow the caller's
+Frappe read permissions. If any visible employee lacks a holiday calendar covering the selected
+period, aggregate utilization is `null` and the response includes a warning rather than reporting
+a partial percentage.
 
 Project financial access is limited to System Manager, Accounts Manager, Projects Manager, and HR
-Manager, and still checks Project read permission. Employee-rate details are limited to System
-Manager, Accounts Manager, and HR Manager, and still check Employee read permission.
+Manager, and still checks Company and Project read permission. Employee-rate details are limited to
+System Manager, Accounts Manager, and HR Manager, and still check Employee read permission.
 
 No values are written back to Project or accounting documents. The API calculates from the current
 submitted source records on each request, so cancellations and credit notes are reflected without
@@ -124,18 +133,16 @@ reconciliation jobs.
 
 ## Deployment and verification gates
 
-This implementation has not been installed or migrated on any site. The live frontend smoke test
-remains deferred. Before enabling the feature:
+The implementation was installed on an isolated v16 staging bench and migrated twice. The
+22 Flowire integration tests pass there. The frontend/browser smoke test remains deferred. Before
+enabling the feature:
 
 1. Verify ERPNext and HRMS are on compatible v15 or v16 branches and that the standard fields above
-   exist on that version.
-2. Install/migrate the Flowire app on a disposable v16 development site, then confirm a second
-   migrate is idempotent.
-3. Run focused Flowire tests and exercise submitted/cancelled invoices, expense claims, and
+   exist on the target version.
+2. Run focused Flowire tests and exercise submitted/cancelled invoices, expense claims, and
    Timesheets with rate changes and multi-currency company setups.
-4. Confirm the role matrix and Employee Holiday List coverage on staging before connecting the
+3. Confirm the role matrix and Employee Holiday List coverage on staging before connecting the
    frontend.
 
-The local bench currently has Frappe/ERPNext v16 but HRMS `17.0.0-dev`; it is not evidence that the
-target v16 HRMS integration passes. The bench's Flowire app directory is also a separate, dirty
-checkout from this repository and must not be overwritten for testing.
+The isolated staging bench uses Frappe 16.56.0, ERPNext 16.55.0, HRMS 16.53.2, and CRM 1.92.0.
+The original Docker bench remains separate and was not modified for this validation.

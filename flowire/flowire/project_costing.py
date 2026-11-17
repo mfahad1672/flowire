@@ -352,24 +352,36 @@ def _employee_record(employee: str) -> dict:
 	return frappe.db.get_value("Employee", employee, selected_fields, as_dict=True)
 
 
-def _employee_calendar(employee: dict) -> dict | None:
+def _employee_calendar(employee: dict, calendar_cache: dict | None = None) -> dict | None:
 	holiday_list_name = employee.holiday_list or frappe.db.get_value(
 		"Company", employee.company, "default_holiday_list"
 	)
-	if not holiday_list_name or not frappe.db.exists("Holiday List", holiday_list_name):
+	if not holiday_list_name:
 		return None
 
-	holiday_list = frappe.get_doc("Holiday List", holiday_list_name)
-	holidays = {
-		getdate(row.holiday_date): bool(row.is_half_day)
-		for row in holiday_list.holidays
-		if row.holiday_date
-	}
+	calendar_cache = calendar_cache if calendar_cache is not None else {}
+	if holiday_list_name not in calendar_cache:
+		if not frappe.db.exists("Holiday List", holiday_list_name):
+			calendar_cache[holiday_list_name] = None
+		else:
+			holiday_list = frappe.get_doc("Holiday List", holiday_list_name)
+			calendar_cache[holiday_list_name] = {
+				"weekly_off": holiday_list.weekly_off,
+				"holidays": {
+					getdate(row.holiday_date): bool(row.is_half_day)
+					for row in holiday_list.holidays
+					if row.holiday_date
+				},
+				"list_start": holiday_list.from_date,
+				"list_end": holiday_list.to_date,
+			}
+
+	holiday_calendar = calendar_cache[holiday_list_name]
+	if not holiday_calendar:
+		return None
+
 	return {
-		"weekly_off": holiday_list.weekly_off,
-		"holidays": holidays,
-		"list_start": holiday_list.from_date,
-		"list_end": holiday_list.to_date,
+		**holiday_calendar,
 		"employment_start": employee.date_of_joining,
 		"employment_end": employee.get("relieving_date"),
 	}
@@ -552,6 +564,178 @@ def get_employee_summary(employee: str, start_date=None, end_date=None) -> dict:
 		"current_allocation_percentage": current_allocation_percentage,
 		"warnings": warnings,
 	}
+
+
+def _executive_project_row(project: dict) -> dict:
+	return {
+		fieldname: project.get(fieldname)
+		for fieldname in (
+			"project",
+			"project_name",
+			"customer",
+			"contract_value",
+			"actual_revenue",
+			"total_cost",
+			"profit",
+			"margin_percentage",
+			"status",
+			"start_date",
+			"end_date",
+			"progress_percentage",
+			"is_overdue",
+		)
+	}
+
+
+def _aggregate_executive_projects(projects: list[dict]) -> dict:
+	project_rows = [_executive_project_row(project) for project in projects]
+	total_contract_value = sum(flt(project.get("contract_value")) for project in project_rows)
+	total_revenue = sum(flt(project.get("actual_revenue")) for project in project_rows)
+	total_cost = sum(flt(project.get("total_cost")) for project in project_rows)
+	total_profit = sum(flt(project.get("profit")) for project in project_rows)
+	profitable = sorted(
+		(project for project in project_rows if flt(project.get("profit")) > 0),
+		key=lambda project: (-flt(project.get("profit")), project.get("project_name") or ""),
+	)
+	loss_making = sorted(
+		(project for project in project_rows if flt(project.get("profit")) < 0),
+		key=lambda project: (flt(project.get("profit")), project.get("project_name") or ""),
+	)
+
+	return {
+		"total_projects": len(project_rows),
+		"active_projects": sum(
+			project.get("status") not in ("Completed", "Cancelled") for project in project_rows
+		),
+		"completed_projects": sum(project.get("status") == "Completed" for project in project_rows),
+		"overdue_projects": sum(bool(project.get("is_overdue")) for project in project_rows),
+		"total_contract_value": total_contract_value,
+		"total_revenue": total_revenue,
+		"total_cost": total_cost,
+		"total_profit": total_profit,
+		"average_margin_percentage": total_profit / total_revenue * 100 if total_revenue else None,
+		"top_profitable_projects": profitable[:5],
+		"projects_running_at_loss": loss_making[:5],
+		"project_warnings": [
+			{
+				"project": project.get("project"),
+				"project_name": project.get("project_name"),
+				"warnings": project.get("warnings"),
+			}
+			for project in projects
+			if project.get("warnings")
+		],
+	}
+
+
+def _executive_employee_utilization(company: str, start_date, end_date) -> dict:
+	if not frappe.has_permission("Employee", "read"):
+		frappe.throw("You do not have permission to view employee utilization.", frappe.PermissionError)
+
+	employee_fields = {field.fieldname for field in frappe.get_meta("Employee").fields}
+	fields = ["name", "company", "holiday_list", "date_of_joining"]
+	if "relieving_date" in employee_fields:
+		fields.append("relieving_date")
+	employees = frappe.get_list(
+		"Employee",
+		filters={"company": company},
+		fields=fields,
+		order_by="name asc",
+		limit_page_length=0,
+	)
+	employee_names = [employee.name for employee in employees]
+	actual_hours_by_employee = {}
+	if employee_names:
+		rows = frappe.db.sql(
+			"""
+			SELECT ts.employee, COALESCE(SUM(td.hours), 0) AS actual_hours
+			FROM `tabTimesheet Detail` td
+			INNER JOIN `tabTimesheet` ts ON ts.name = td.parent
+			WHERE ts.company = %s
+				AND ts.docstatus = 1
+				AND COALESCE(DATE(td.from_time), ts.start_date) BETWEEN %s AND %s
+				AND ts.employee IN %s
+			GROUP BY ts.employee
+			""",
+			(company, start_date, end_date, tuple(employee_names)),
+			as_dict=True,
+		)
+		actual_hours_by_employee = {row.employee: flt(row.actual_hours) for row in rows}
+
+	total_actual_hours = sum(actual_hours_by_employee.values())
+	total_available_hours = 0
+	employees_with_capacity = 0
+	employees_missing_capacity = 0
+	calendar_cache = {}
+	for employee in employees:
+		calendar = _employee_calendar(employee, calendar_cache)
+		available_hours = _calendar_capacity(calendar, start_date, end_date)
+		if available_hours is None:
+			employees_missing_capacity += 1
+		else:
+			total_available_hours += available_hours
+			if available_hours > 0:
+				employees_with_capacity += 1
+
+	capacity_complete = employees_missing_capacity == 0
+	warnings = []
+	if employees_missing_capacity:
+		warnings.append(
+			f"Available hours are incomplete for {employees_missing_capacity} employee(s) "
+			"because a holiday calendar is missing or does not cover the selected period."
+		)
+
+	return {
+		"period_start": start_date,
+		"period_end": end_date,
+		"employee_count": len(employees),
+		"employees_with_timesheets": sum(
+			actual_hours_by_employee.get(employee, 0) > 0 for employee in employee_names
+		),
+		"employees_with_capacity": employees_with_capacity,
+		"employees_missing_capacity": employees_missing_capacity,
+		"actual_hours": total_actual_hours,
+		"available_hours": total_available_hours if capacity_complete else None,
+		"capacity_complete": capacity_complete,
+		"utilization_percentage": (
+			total_actual_hours / total_available_hours * 100
+			if capacity_complete and total_available_hours
+			else None
+		),
+		"warnings": warnings,
+	}
+
+
+@frappe.whitelist()
+def get_executive_summary(company: str, start_date=None, end_date=None) -> dict:
+	"""Return company-level project financials and employee utilization."""
+	_require_roles(PROJECT_COSTING_ROLES)
+	_require_hrms()
+
+	if not frappe.db.exists("Company", company):
+		frappe.throw(f"Company {company} does not exist.", frappe.DoesNotExistError)
+	if not frappe.has_permission("Company", "read", company):
+		frappe.throw("You do not have permission to view this company.", frappe.PermissionError)
+
+	start, end = _get_period(start_date, end_date)
+	project_rows = frappe.get_list(
+		"Project",
+		filters={"company": company},
+		fields=["name"],
+		order_by="name asc",
+		limit_page_length=0,
+	)
+	projects = [get_project_financials(project.name) for project in project_rows]
+	summary = _aggregate_executive_projects(projects)
+	summary.update(
+		{
+			"company": company,
+			"currency": frappe.db.get_value("Company", company, "default_currency"),
+			"financials_as_of": today(),
+			"employee_utilization": _executive_employee_utilization(company, start, end),
+		}
+	)
+	return summary
 
 
 def _timesheet_work_date(row, doc):
