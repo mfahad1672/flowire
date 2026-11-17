@@ -1,0 +1,225 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-11-16 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "customer",
+  "opportunity",
+  "quotation",
+  "sales_order",
+  "project",
+  "status",
+  "estimated_revenue",
+  "estimated_labor_cost",
+  "estimated_purchase_cost",
+  "estimated_travel_cost",
+  "estimated_software_cost",
+  "estimated_subcontractor_cost",
+  "estimated_miscellaneous_cost",
+  "estimated_expense_cost",
+  "estimated_total_cost",
+  "expected_profit",
+  "expected_margin_percent"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fieldname": "opportunity",
+   "fieldtype": "Link",
+   "label": "Opportunity",
+   "options": "Opportunity"
+  },
+  {
+   "fieldname": "quotation",
+   "fieldtype": "Link",
+   "label": "Quotation",
+   "options": "Quotation"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order"
+  },
+  {
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Project"
+  },
+  {
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nApproved\nRejected",
+   "permlevel": 1,
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_revenue",
+   "fieldtype": "Currency",
+   "label": "Estimated Revenue",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_labor_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Labor Cost",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_purchase_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Purchase Cost",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_travel_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Travel Cost",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_software_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Software Cost",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_subcontractor_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Subcontractor Cost",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "estimated_miscellaneous_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Miscellaneous Cost",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "estimated_expense_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Expense Cost",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "estimated_total_cost",
+   "fieldtype": "Currency",
+   "label": "Estimated Total Cost",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected_profit",
+   "fieldtype": "Currency",
+   "label": "Expected Profit",
+   "options": "Company:company:default_currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "expected_margin_percent",
+   "fieldtype": "Percent",
+   "label": "Expected Margin (%)",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-16 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Flowire",
+ "name": "Project Cost Estimate",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "permlevel": 1,
+   "read": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "permlevel": 1,
+   "read": 1,
+   "role": "Sales Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "if_owner": 1,
+   "read": 1,
+   "role": "Sales User",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Projects Manager"
+  },
+  {
+   "permlevel": 1,
+   "read": 1,
+   "role": "Projects Manager"
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "customer"
+}

@@ -37,6 +37,9 @@ DEFAULT_DOCTYPES = (
 	"Company Bidder",
 	"EM Banks",
 	"Lead Source",
+	"Project Cost Estimate",
+	"Employee Cost Rate",
+	"Resource Allocation",
 )
 
 # The status/stage option lists that drive the whole UI. A site whose select options

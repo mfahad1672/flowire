@@ -99,6 +99,10 @@ fixtures = [
 doc_events = {
 	"Lead": {"on_update": "flowire.crm.sharing.share_with_owner"},
 	"Opportunity": {"on_update": "flowire.crm.sharing.share_with_owner"},
+	"Timesheet": {
+		"before_validate": "flowire.flowire.project_costing.apply_employee_cost_rates",
+		"before_submit": "flowire.flowire.project_costing.validate_project_timesheet_rates",
+	},
 	"ToDo": {
 		"after_insert": "flowire.crm.sharing.share_on_assignment",
 		"on_update": "flowire.crm.sharing.unshare_on_cancel",

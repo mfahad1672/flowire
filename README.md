@@ -17,7 +17,8 @@ See `docs/multitenancy-plan.md` in the `flowire-crm` repository for the full pla
 |---|---|
 | `flowire/hooks.py` | `fixtures`, `doc_events`, `scheduler_events`, `before_request` |
 | `flowire/fixtures/` | Custom Fields, Property Setters, Custom DocPerm, Roles, Workflows |
-| `flowire/flowire/doctype/` | Custom DocTypes shipped as code (`Company Bidder`, `EM Banks`) |
+| `flowire/flowire/doctype/` | Custom DocTypes shipped as code, including CRM and Project Costing |
+| `flowire/flowire/project_costing.py` | Project costing, effective employee rates, and resource summary APIs |
 | `flowire/patches/` | Replayable migrations (e.g. tagging customizations with `module = Flowire`) |
 | `pyproject.toml` | Package metadata read by `bench new-app` / `bench get-app` |
 
@@ -48,3 +49,5 @@ bench new-site acme.flowire.app \
    as it has a single Custom DocPerm row.
 4. **Schema is never created at runtime.** Nothing in this app may create a Custom Field on
    request or page load.
+5. **Project costing stays additive.** Its DocTypes, validations, and Timesheet event handlers
+   live here; ERPNext and HRMS source records remain the source of truth.

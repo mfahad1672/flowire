@@ -1,0 +1,99 @@
+{
+ "actions": [],
+ "allow_rename": 0,
+ "autoname": "hash",
+ "creation": "2026-11-16 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "employee",
+  "company",
+  "effective_date",
+  "cost_rate_per_hour",
+  "billing_rate_per_hour",
+  "is_active"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "fetch_from": "employee.company",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "effective_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Effective Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "cost_rate_per_hour",
+   "fieldtype": "Currency",
+   "label": "Cost Rate Per Hour",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "billing_rate_per_hour",
+   "fieldtype": "Currency",
+   "label": "Billing Rate Per Hour",
+   "options": "Company:company:default_currency",
+   "reqd": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "is_active",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Active"
+  }
+ ],
+ "index_web_pages_for_search": 0,
+ "links": [],
+ "modified": "2026-11-16 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Flowire",
+ "name": "Employee Cost Rate",
+ "naming_rule": "Random",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "read": 1,
+   "report": 1,
+   "role": "HR Manager",
+   "write": 1
+  },
+  {
+   "read": 1,
+   "role": "Accounts Manager"
+  }
+ ],
+ "sort_field": "effective_date",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "employee"
+}
