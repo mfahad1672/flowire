@@ -10,16 +10,18 @@ Registered in ``hooks.py`` as:
     after_migrate = "flowire.setup.install.after_migrate"
 """
 
-from flowire.setup import notifications, schema
+from flowire.setup import notifications, project_fields, schema
 
 
 def after_install():
 	"""Fresh site: create the Notifications, Email Templates and fields we ship."""
 	schema.sync()
+	project_fields.sync()
 	notifications.sync()
 
 
 def after_migrate():
 	"""Every migrate: re-assert them, so an edit made in Desk does not drift."""
 	schema.sync()
+	project_fields.sync()
 	notifications.sync()

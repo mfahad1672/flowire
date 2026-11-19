@@ -93,6 +93,9 @@ fixtures = [
 #   Server Script "After Save"    -> on_update
 #   Server Script "Before Delete" -> on_trash
 #
+REFRESH_PROJECT_COSTS = "flowire.flowire.project_costing.refresh_projects_for"
+PROJECT_ATTRIBUTION = "flowire.flowire.project_costing.fill_header_project"
+
 # WHEN THIS GOES LIVE, DISABLE THE MATCHING SERVER SCRIPTS IN THE SAME CHANGE.
 # Both sides are idempotent (each checks DocShare first), so a brief overlap is
 # survivable, but it does double work and pollutes the error log.
@@ -102,6 +105,32 @@ doc_events = {
 	"Timesheet": {
 		"before_validate": "flowire.flowire.project_costing.apply_employee_cost_rates",
 		"before_submit": "flowire.flowire.project_costing.validate_project_timesheet_rates",
+		"on_submit": REFRESH_PROJECT_COSTS,
+		"on_cancel": REFRESH_PROJECT_COSTS,
+	},
+	# Everything that can change a project's stored cost figures. ERPNext refreshes its own
+	# aggregates on these same events; this keeps the Flowire fields in step.
+	"Sales Order": {
+		"validate": PROJECT_ATTRIBUTION,
+		"on_submit": REFRESH_PROJECT_COSTS,
+		"on_cancel": REFRESH_PROJECT_COSTS,
+	},
+	"Sales Invoice": {
+		"validate": PROJECT_ATTRIBUTION,
+		"on_submit": REFRESH_PROJECT_COSTS,
+		"on_cancel": REFRESH_PROJECT_COSTS,
+	},
+	"Purchase Order": {"validate": PROJECT_ATTRIBUTION},
+	"Purchase Invoice": {
+		"validate": PROJECT_ATTRIBUTION,
+		"on_submit": REFRESH_PROJECT_COSTS,
+		"on_cancel": REFRESH_PROJECT_COSTS,
+	},
+	"Payment Entry": {"on_submit": REFRESH_PROJECT_COSTS, "on_cancel": REFRESH_PROJECT_COSTS},
+	"Expense Claim": {"on_submit": REFRESH_PROJECT_COSTS, "on_cancel": REFRESH_PROJECT_COSTS},
+	"Resource Allocation": {
+		"on_update": REFRESH_PROJECT_COSTS,
+		"on_trash": REFRESH_PROJECT_COSTS,
 	},
 	"ToDo": {
 		"after_insert": "flowire.crm.sharing.share_on_assignment",
